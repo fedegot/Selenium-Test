@@ -20,8 +20,8 @@ pswd_usr.send_keys(paswd)
 
 pswd_usr.send_keys(Keys.RETURN)
 
-# rkPEFKH52h%p!5
 prn = driver.find_element(By.ID, "advanced").send_keys(Keys.RETURN)
+print(f"You're inside your personal page{email}")
 #prenot = driver.find_element(By.XPATH, "https://prenotami.esteri.it/Services/Booking/1137").send_keys(Keys.RETURN)
 driver.navigate().to('https://prenotami.esteri.it/Services/Booking/1137')
 
