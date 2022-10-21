@@ -2,13 +2,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pyinputplus import inputEmail, inputPassword
+from selenium.webdriver.common.action_chains import ActionChains
 import time
+from termcolor import colored, cprint
 
 
 email = inputEmail("Inserisci la tua email: ")
 paswd = inputPassword("Inserisci la tua password: ")
-PATH = '/home/fedegot/Documents/chromedriver'
-driver = webdriver.Chrome(PATH)
+path2  = input(cprint((f"Premi:\n 1. Per Passaporto \n 2. Per Stato Civile \n 3. Carta D'Identita' \n"), 'red', attrs=['bold']))
+PATH  = 'C:/Users/got_a/OneDrive/Documents/msedgedriver'
+driver = webdriver.Edge(PATH)
 
 driver.get("https://prenotami.esteri.it/")
 print(driver.title) ## return the title
@@ -22,8 +25,22 @@ pswd_usr.send_keys(Keys.RETURN)
 
 prn = driver.find_element(By.ID, "advanced").send_keys(Keys.RETURN)
 print(f"You're inside your personal page{email}")
-#prenot = driver.find_element(By.XPATH, "https://prenotami.esteri.it/Services/Booking/1137").send_keys(Keys.RETURN)
-driver.navigate().to('https://prenotami.esteri.it/Services/Booking/1137')
+
+# rkPEFKH52h%p!5
+# //button[@class='button primary']
+pren = driver.find_element(By.XPATH, f"//button[@class='button primary'][{path2}]")
+driver.implicitly_wait(1000)
+ActionChains(driver).move_to_element(pren).click(pren).perform()
+driver.implicitly_wait(10)
+#if driver.find_element(By.CLASS_NAME, "jc-bs3-container container") == True:
+    #print("No posizioni aperte al moment!!!!!!!!!!!!!!!!!!!")
+
+
+
+
+
+
+
 
 time.sleep(5)
 
