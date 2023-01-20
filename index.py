@@ -7,12 +7,34 @@ import time
 from termcolor import colored, cprint
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import urllib.request
+
+
+from bs4 import BeautifulSoup
+import requests
+
+
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+
 
 email = inputEmail("Inserisci la tua email: ")
 paswd = inputPassword("Inserisci la tua password: ")
-path2  = input(cprint((f"Premi:\n 1. Per Passaporto \n 2. Per Stato Civile \n 3. Carta D'Identita' \n"), 'red', attrs=['bold']))
+path2 = 0
+
+def input22():
+    ll = [1, 2, 3]
+    global path2
+    leo = int(input(cprint((f"Premi:\n 1. Per Passaporto \n 2. Per Stato Civile \n 3. Carta D'Identita' \n"), 'red', attrs=['bold'])))
+    if leo in ll:
+        path2 = leo  
+    else:
+        print("Il tasto che hai premuto non e' corretto")
+        path2 = 0
+
+input22()
 PATH  = 'C:/Users/got_a/OneDrive/Documents/msedgedriver'
-driver = webdriver.Edge(PATH)
+driver = webdriver.Chrome(options=options)
 print(webdriver.__version__)
 
 driver.get("https://prenotami.esteri.it/")
@@ -40,19 +62,27 @@ def onebu():
 onebu()
     
 cprint(("Stiamo per cercare la prenotazione...\n"), 'red', attrs=['bold'])
+count = []
 while True:
     try:
+        count.append(1)
         element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "jconfirm"))
         )
         exi = driver.find_element(By.CLASS_NAME,"jconfirm-buttons")
-        cprint(("Al momento non ci sono date disponibili per il servizio richiesto...\nRiproviamo...\n\n"), 'red', attrs=['bold'])
+        cprint((f"Tentantivo numero {len(count)}\nAl momento non ci sono date disponibili per il servizio richiesto...\nRiproviamo...\n\n"), 'red', attrs=['bold'])
         ActionChains(driver).move_to_element(exi).click(exi).perform()
         time.sleep(2)
+        
         onebu()
         
     except:
-        cprint(("jconfirm not found."), 'red', attrs=['bold'])
+        strUrl = driver.current_url
+        oo = str(strUrl)
+        urllib.request.urlretrieve(oo, "pagina.txt")
+        urllib.request.urlretrieve(oo, "pagina.html")
+        cprint(("copia html"), 'red', attrs=['bold'])
+        
         break
 
 driver.quit()
