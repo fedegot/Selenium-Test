@@ -26,29 +26,33 @@ pswd_usr.send_keys(paswd)
 pswd_usr.send_keys(Keys.RETURN)
 
 prn = driver.find_element(By.ID, "advanced").send_keys(Keys.RETURN)
-print(f"You're inside your personal page{email}")
-
-# rkPEFKH52h%p!5
-# //button[@class='button primary']
+cprint((f"You're inside your personal page {email}"), 'red', attrs=['bold'])
 
 
-
-driver.implicitly_wait(8000)
-pren = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.XPATH, f"//button[@class='button primary'][{path2}]"))
-)
-ActionChains(driver).move_to_element(pren).click(pren).perform()
-driver.implicitly_wait(10)
-#if driver.find_element(By.CLASS_NAME, "jc-bs3-container container") == True:
-    #print("No posizioni aperte al moment!!!!!!!!!!!!!!!!!!!")
-
-
-
-
-
-
-
-
-time.sleep(5)
+def onebu():
+    driver.implicitly_wait(8000)
+    pren = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, f"//button[@class='button primary'][{path2}]"))
+    )
+    ActionChains(driver).move_to_element(pren).click(pren).perform()
+    driver.implicitly_wait(10)
+    
+onebu()
+    
+cprint(("Stiamo per cercare la prenotazione...\n"), 'red', attrs=['bold'])
+while True:
+    try:
+        element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jconfirm"))
+        )
+        exi = driver.find_element(By.CLASS_NAME,"jconfirm-buttons")
+        cprint(("Al momento non ci sono date disponibili per il servizio richiesto...\nRiproviamo...\n\n"), 'red', attrs=['bold'])
+        ActionChains(driver).move_to_element(exi).click(exi).perform()
+        time.sleep(2)
+        onebu()
+        
+    except:
+        cprint(("jconfirm not found."), 'red', attrs=['bold'])
+        break
 
 driver.quit()
