@@ -9,7 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import urllib.request
 from pywebcopy import save_webpage
-import winsound
 from selenium.webdriver.support.ui import Select
 
 
@@ -200,7 +199,7 @@ while True:
         
         
         
-        winsound.Beep(440, 500)
+        
         strUrl = driver.current_url
         oo = str(strUrl)
         urllib.request.urlretrieve(oo, "pagina.txt")
