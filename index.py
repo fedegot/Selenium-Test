@@ -13,7 +13,7 @@ from selenium.webdriver.support.ui import Select
 
 
 
-options = webdriver.ChromeOptions()
+options = webdriver.Chrome(executable_path='/usr/bin/chromedriver')
 options.add_argument('--headless')
 
 
