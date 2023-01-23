@@ -14,7 +14,7 @@ from selenium.webdriver.firefox.options import Options
 
 
 
-driver = webdriver.Firefox()
+driver = webdriver.Firefox(executable_path=r"/usr/local/bin/geckodriver")
 
 
 email = inputEmail("Inserisci la tua email: ")
