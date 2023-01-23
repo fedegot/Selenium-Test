@@ -13,11 +13,8 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 
 
-options = Options()
-options.add_argument("--headless")
 
-
-driver = webdriver.Firefox(options=options)
+driver = webdriver.Firefox()
 
 
 email = inputEmail("Inserisci la tua email: ")
